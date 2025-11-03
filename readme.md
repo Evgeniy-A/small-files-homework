@@ -237,10 +237,10 @@ participant FileSystem
 participant BillCalculator
 participant DiscountPolicy
 participant CsvBillWriter
-participant Logger as Log
+participant Printger as Print
 
 == Запуск программы ==
-User -> Main: run(args: input.csv, output.csv)
+User -> Main: run
 
 == Чтение входных данных ==
 Main -> CsvProductReader: read(inputPath)
@@ -250,9 +250,9 @@ CsvProductReader -> FileSystem: open(input.csv)
 FileSystem --> CsvProductReader: FileReader / IOException?
 
 alt Файл не найден
-    CsvProductReader -> Log: error("File not found")
+    CsvProductReader -> Print: error("File not found")
     CsvProductReader --> Main: throw IOException
-    Main -> Log: error("Ошибка чтения файла", exception)
+    Main -> Print: error("Ошибка чтения файла", exception)
     Main --> User: terminate with error
 else Файл найден
     loop for each line in file
@@ -261,7 +261,7 @@ else Файл найден
         alt Валидная строка
             CsvProductReader -> CsvProductReader: parse -> new ProductLine
         else Ошибка парсинга
-            CsvProductReader -> Log: warn("Parse error, skip line")
+            CsvProductReader -> Print: warn("Parse error, skip line")
             CsvProductReader -> CsvProductReader: increment errorCount
         end
     end
@@ -288,9 +288,9 @@ CsvBillWriter -> FileSystem: open(bill.csv, write)
 FileSystem --> CsvBillWriter: BufferedWriter / IOException?
 
 alt Ошибка записи
-    CsvBillWriter -> Log: error("Ошибка записи файла")
+    CsvBillWriter -> Print: error("Ошибка записи файла")
     CsvBillWriter --> Main: throw IOException
-    Main -> Log: error("Ошибка при сохранении", exception)
+    Main -> Print: error("Ошибка при сохранении", exception)
     Main --> User: terminate with error
 else Успешная запись
     loop for each BillLine
@@ -302,7 +302,7 @@ end
 deactivate CsvBillWriter
 
 == Завершение ==
-Main -> Log: info("bill.csv successfully created")
+Main -> Print: info("bill.csv successfully created")
 Main --> User: show "Calculation complete"
 
 @enduml
