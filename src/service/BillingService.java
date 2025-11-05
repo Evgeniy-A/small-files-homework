@@ -7,7 +7,6 @@ import impl.BillCalculatorImpl;
 import impl.CsvProductReaderImpl;
 import impl.CsvProductWriterImpl;
 import impl.SimpleBillResult;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,15 +17,16 @@ public class BillingService {
         BillCalculatorImpl calculator = new BillCalculatorImpl();
         CsvProductWriterImpl writer = new CsvProductWriterImpl();
         try {
-            ReadResult<ProductLine> resultReader =  reader.read();
+            ReadResult<ProductLine> resultReader = reader.read();
+            ArrayList<ProductLine> products = resultReader.getItems();
             SimpleBillResult<BillLine> resultCalculate = (SimpleBillResult<BillLine>)
-                    calculator.calculate((ArrayList<ProductLine>) resultReader);
+                    calculator.calculate(products);
             ArrayList<BillLine> list = resultCalculate.getLines();
             BigDecimal totalPrice = resultCalculate.getTotal();
             int errors = resultReader.getErrorCount();
+
             writer.write(list, totalPrice, errors);
-        }
-         catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }

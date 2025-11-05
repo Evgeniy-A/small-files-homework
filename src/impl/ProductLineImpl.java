@@ -1,13 +1,12 @@
 package impl;
 
 import contracts.ProductLine;
-
 import java.math.BigDecimal;
 
 public class ProductLineImpl implements ProductLine {
-   private String name;
-   private int quantity;
-   private BigDecimal price;
+    private String name;
+    private int quantity;
+    private BigDecimal price;
 
     public ProductLineImpl(String name, int quantity, BigDecimal price) {
         this.name = name;

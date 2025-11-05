@@ -1,8 +1,9 @@
 package impl;
 
+import static java.math.RoundingMode.HALF_UP;
+
 import contracts.BillLine;
 import java.math.BigDecimal;
-import static java.math.RoundingMode.HALF_UP;
 
 public class BillLineImpl implements BillLine {
     private String name;
@@ -12,10 +13,10 @@ public class BillLineImpl implements BillLine {
     private boolean hasDiscount;
 
     public BillLineImpl(String name, BigDecimal unitPrice,
-            BigDecimal subTotalPrice, int quantity, boolean discount) {
+                        BigDecimal subTotalPrice, int quantity, boolean discount) {
         this.name = name;
-        this.unitPrice = this.unitPrice.setScale(2, HALF_UP);
-        this.subTotalPrice = this.subTotalPrice.setScale(2, HALF_UP);
+        this.unitPrice = unitPrice.setScale(2, HALF_UP);
+        this.subTotalPrice = subTotalPrice.setScale(2, HALF_UP);
         this.quantity = quantity;
         this.hasDiscount = discount;
     }

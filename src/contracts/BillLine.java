@@ -4,8 +4,12 @@ import java.math.BigDecimal;
 
 public interface BillLine {
     String getName();
+
     int getQuantity();
-    BigDecimal getUnitPrice();      // 2 знака, HALF_UP
+
+    BigDecimal getUnitPrice();
+
     boolean isDiscountApplied();
-    BigDecimal getFinalTotal();     // 2 знака, HALF_UP
+
+    BigDecimal getFinalTotal();
 }

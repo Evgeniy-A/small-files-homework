@@ -3,15 +3,14 @@ package impl;
 import contracts.CsvProductReader;
 import contracts.ProductLine;
 import contracts.ReadResult;
-
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.file.Path;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class CsvProductReaderImpl implements CsvProductReader {
-    private static final Path path = Path.of("src/main/resources/data.csv");
+    private static final Path PATH = Path.of("src/resources/data.csv");
     private static final int NAME_INDEX = 0;
     private static final int QUANTITY_INDEX = 1;
     private static final int PRICE_INDEX = 2;
@@ -19,13 +18,13 @@ public class CsvProductReaderImpl implements CsvProductReader {
 
     @Override
     public ReadResult<ProductLine> read() throws IOException {
-        ArrayList<String> lines = new ArrayList<>(Files.readAllLines(path));
+        ArrayList<String> lines = new ArrayList<>(Files.readAllLines(PATH));
         ArrayList<ProductLine> list = new ArrayList<>();
         int errorCount = processLineList(lines, list);
         return new SimpleReadResult<>(list, errorCount);
     }
 
-    private int processLineList(ArrayList<String> lines,ArrayList<ProductLine> products) {
+    private int processLineList(ArrayList<String> lines, ArrayList<ProductLine> products) {
         int errorCount = 0;
         for (String line : lines) {
             String[] fields = splitLine(line);

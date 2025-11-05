@@ -1,7 +1,6 @@
 package impl;
 
 import contracts.BillResult;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ public class SimpleBillResult<T> implements BillResult {
     }
 
     @Override
-    public ArrayList <T> getLines() {
+    public ArrayList<T> getLines() {
         return lines;
     }
 

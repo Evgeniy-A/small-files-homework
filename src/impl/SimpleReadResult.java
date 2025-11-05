@@ -1,10 +1,9 @@
 package impl;
 
 import contracts.ReadResult;
-
 import java.util.ArrayList;
 
-public class SimpleReadResult <T> implements ReadResult {
+public class SimpleReadResult<T> implements ReadResult {
     private ArrayList<T> items;
     private int errorCount;
 
@@ -14,7 +13,7 @@ public class SimpleReadResult <T> implements ReadResult {
     }
 
     @Override
-    public ArrayList <T> getItems() {
+    public ArrayList<T> getItems() {
         return items;
     }
 
